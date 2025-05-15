@@ -61,8 +61,8 @@ const AddCoffee = () => {
                     </fieldset>
                 </div>
                 <fieldset className="fieldset">
-                    <legend className="fieldset-legend">PHOTO URL</legend>
-                    <input type="text" name='photo url' className="input w-full" placeholder="Enter photo url" />
+                    <legend className="fieldset-legend">PHOTO</legend>
+                    <input type="text" name='photo' className="input w-full" placeholder="Enter photo" />
                 </fieldset>
                 <button className='btn w-full'>Add to coffee</button>
             </form>

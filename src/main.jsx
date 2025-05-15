@@ -12,6 +12,7 @@ import Home from './component/Home.jsx';
 
 import UpdatedCoffee from './component/UpdatedCoffee.jsx';
 import AddCoffee from './component/AddCoffee.jsx';
+import CoffeeDetail from './component/CoffeeDetail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,12 @@ const router = createBrowserRouter([
         Component: AddCoffee,
       },
       {
-        path: 'updateCoffee',
+        path: 'coffee/:id',
+        loader: () => fetch(''),
+        Component: CoffeeDetail
+      },
+      {
+        path: 'updateCoffee/:id',
         Component: UpdatedCoffee
       }
 
