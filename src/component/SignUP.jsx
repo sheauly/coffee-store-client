@@ -1,5 +1,6 @@
 import React, { use } from 'react';
 import { AuthContexts } from '../contexts/AuthContexts';
+import Swal from 'sweetalert2';
 
 const SignUP = () => {
 
@@ -14,16 +15,32 @@ const SignUP = () => {
         const { email, password, ...userProfile } = Object.fromEntries(formData.entries());
 
         console.log(email, password, userProfile)
-        // const name = formData.get('name')
-        // const email = formData.get('email');
-        // const password = formData.get('password')
-        console.log(name, email, password);
-
+   
         // create User in tne firebase
         createUser(email, password)
             .then(result => {
                 console.log(result.user);
+
                 // save profile info in the db
+                fetch('http://localhost:3000/users', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userProfile)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Your work has been saved",
+                                showConfirmButton: false,
+                                timer: 1500
+                              });
+                       }
+                    })
             })
             .catch(error => {
                 console.log(error)
