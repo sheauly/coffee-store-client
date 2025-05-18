@@ -12,14 +12,22 @@ const SignUP = () => {
         const form = e.target;
         const formData = new FormData(form);
 
-        const { email, password, ...userProfile } = Object.fromEntries(formData.entries());
+        const { email, password, ...restFromData } = Object.fromEntries(formData.entries());
 
-        console.log(email, password, userProfile)
+        console.log(email, password)
    
         // create User in tne firebase
         createUser(email, password)
             .then(result => {
                 console.log(result.user);
+
+                const userProfile = {
+                    email, 
+                    ...restFromData,
+                    creationTime: result.user.metadata.creationTime, 
+                    createdAt: result.user.metadata.createdAt,
+                    lastSignInTime: result.user.metadata.lastSignInTime
+                }
 
                 // save profile info in the db
                 fetch('http://localhost:3000/users', {
